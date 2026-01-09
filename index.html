@@ -496,6 +496,13 @@
             font-size: 0.875rem;
             color: var(--text-muted);
         }
+        /* Add/Update this in your <style> block */
+.work-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This makes the video fill the box without black bars */
+    display: block;
+}
 
     </style>
 </head>
@@ -606,7 +613,7 @@
         </div>
     </section>
 
-    <section id="work" class="section bg-off">
+<section id="work" class="section bg-off">
         <div class="container">
             <div class="reveal" style="margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: end;">
                 <div>
@@ -616,24 +623,49 @@
             </div>
 
             <div class="work-grid">
-                <div class="work-item reveal" style="background-color: #e2e8f0;">
-                    <div class="work-overlay"><div class="play-icon"></div></div>
+                
+                <div class="work-item reveal">
+                    <video controls preload="metadata">
+                        <source src="SHORT 1 NEW.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-                <div class="work-item reveal" style="background-color: #cbd5e1;">
-                    <div class="work-overlay"><div class="play-icon"></div></div>
+
+                <div class="work-item reveal">
+                    <video controls preload="metadata">
+                        <source src="videos/video-filename-2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-                <div class="work-item reveal" style="background-color: #94a3b8;">
-                    <div class="work-overlay"><div class="play-icon"></div></div>
+
+                <div class="work-item reveal">
+                    <video controls preload="metadata">
+                        <source src="videos/video-filename-3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-                <div class="work-item reveal" style="background-color: #64748b;">
-                    <div class="work-overlay"><div class="play-icon"></div></div>
+
+                <div class="work-item reveal">
+                    <video controls preload="metadata">
+                        <source src="videos/video-filename-4.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-                <div class="work-item reveal" style="background-color: #475569;">
-                    <div class="work-overlay"><div class="play-icon"></div></div>
+
+                <div class="work-item reveal">
+                    <video controls preload="metadata">
+                        <source src="videos/video-filename-5.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-                <div class="work-item reveal" style="background-color: #334155;">
-                    <div class="work-overlay"><div class="play-icon"></div></div>
+
+                <div class="work-item reveal">
+                    <video controls preload="metadata">
+                        <source src="videos/video-filename-6.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
+
             </div>
         </div>
     </section>
@@ -648,26 +680,26 @@
             <div class="grid-2">
                 <div class="card reveal">
                     <p style="font-size: 1.125rem; color: var(--text-main); font-style: italic;">
-                        "Review Here."
+                        "I cant believe this worked so well!"
                     </p>
                     <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;">
                         <div style="width: 50px; height: 50px; background: var(--border); border-radius: 50%;"></div>
                         <div>
-                            <strong>Pastor John Doe</strong><br>
-                            <span style="font-size: 0.875rem; color: var(--text-muted);">Church here</span>
+                            <strong>Timothy K</strong><br>
+                            <span style="font-size: 0.875rem; color: var(--text-muted);">E Free Church</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="card reveal">
                     <p style="font-size: 1.125rem; color: var(--text-main); font-style: italic;">
-                        "Review Here."
+                        "Connecting with social media is the best way to get to this generation!"
                     </p>
                     <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;">
                         <div style="width: 50px; height: 50px; background: var(--border); border-radius: 50%;"></div>
                         <div>
-                            <strong>Pastor John Doe</strong><br>
-                            <span style="font-size: 0.875rem; color: var(--text-muted);">Church Here</span>
+                            <strong>DevsCoffee</strong><br>
+                            <span style="font-size: 0.875rem; color: var(--text-muted);">Church</span>
                         </div>
                     </div>
                 </div>
@@ -732,8 +764,7 @@
             </div>
         </div>
     </section>
-
-    <section id="contact" class="section">
+<section id="contact" class="section">
         <div class="container">
             <div class="grid-2">
                 <div class="contact-form reveal">
@@ -742,25 +773,28 @@
                         <h2>Get your free sample</h2>
                         <p>Fill out the form below to recieve your sample.</p>
                     </div>
-                    <form action="#" onsubmit="event.preventDefault(); alert('Thank you! =');">
+                    
+                    <form id="submit-to-google-sheet" name="submit-to-google-sheet">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+                            <input type="email" id="email" name="Email" class="form-control" placeholder="john@example.com" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="phone" id="phone" class="form-control" placeholder="011-000-1111" required>
+                            <input type="tel" id="phone" name="number" class="form-control" placeholder="011-000-1111" required>
                         </div>
                         <div class="form-group">
-                            <label for="message">How can we help?</label>
-                            <textarea id="message" rows="4" class="form-control" placeholder="Tell us about your project..."></textarea>
+                            <label for="message">YouTube Link / Message</label>
+                            <textarea id="message" name="YT Link" rows="4" class="form-control" placeholder="Paste your channel link or project details..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Request Sample</button>
+                        <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Request Sample</button>
                     </form>
+                    
+                    <div id="form-status" style="margin-top: 1rem; display: none;"></div>
                 </div>
 
                 <div class="contact-info reveal">
@@ -794,6 +828,8 @@
     </footer>
 
     <script>
+
+        
         document.addEventListener('DOMContentLoaded', () => {
             
             // 1. Mobile Menu Toggle
@@ -850,6 +886,48 @@
                     children[i].style.transitionDelay = `${i * 100}ms`;
                 }
             });
+        });
+    </script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwWy_5XlNE3OGLxdZiYyd-vrbpBS36nHKIVYPIWJbed6t_b8xtszs68LT-KnvbQqux78A/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const btn = document.getElementById('submit-btn');
+        const statusMsg = document.getElementById('form-status');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            // UI Loading State
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = 'Sending...';
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    // Success State
+                    statusMsg.style.display = 'block';
+                    statusMsg.style.color = 'green';
+                    statusMsg.innerHTML = "Success! We'll be in touch soon.";
+                    alert('Thank you! Your information has been sent.');
+                    
+                    // Reset Form
+                    form.reset();
+                    btn.innerHTML = originalBtnText;
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                })
+                .catch(error => {
+                    // Error State
+                    console.error('Error!', error.message);
+                    statusMsg.style.display = 'block';
+                    statusMsg.style.color = 'red';
+                    statusMsg.innerHTML = "Error sending message. Please try again.";
+                    
+                    btn.innerHTML = originalBtnText;
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
         });
     </script>
 </body>
