@@ -496,12 +496,39 @@
             font-size: 0.875rem;
             color: var(--text-muted);
         }
-        /* Add/Update this in your <style> block */
+
+        /* Update these specific classes in your <style> section */
+
+.work-grid {
+    /* Change to 3 columns max, centering them */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px; /* Limit width so they don't get too spread out */
+    margin: 0 auto;    /* Center the grid container */
+}
+
+.work-item {
+    position: relative;
+    /* CHANGE: Aspect ratio from 16/9 to 9/16 for vertical video */
+    aspect-ratio: 9/16; 
+    background-color: #000; /* Black background looks better for vertical video */
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-smooth);
+}
+
 .work-item video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This makes the video fill the box without black bars */
+    object-fit: cover;
     display: block;
+}
+
+/* Optional: Add a subtle border for white backgrounds so videos pop */
+.work-item {
+    border: 4px solid #000;
 }
 
     </style>
@@ -626,46 +653,24 @@
                 
                 <div class="work-item reveal">
                     <video controls preload="metadata">
-                        <source src="SHORT 1 NEW.mp4" type="video/mp4">
+                        <source src="short1.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
 
                 <div class="work-item reveal">
                     <video controls preload="metadata">
-                        <source src="videos/video-filename-2.mp4" type="video/mp4">
+                        <source src="short2.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
 
                 <div class="work-item reveal">
                     <video controls preload="metadata">
-                        <source src="videos/video-filename-3.mp4" type="video/mp4">
+                        <source src="short3.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
-
-                <div class="work-item reveal">
-                    <video controls preload="metadata">
-                        <source src="videos/video-filename-4.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-
-                <div class="work-item reveal">
-                    <video controls preload="metadata">
-                        <source src="videos/video-filename-5.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-
-                <div class="work-item reveal">
-                    <video controls preload="metadata">
-                        <source src="videos/video-filename-6.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-
             </div>
         </div>
     </section>
