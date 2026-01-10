@@ -443,6 +443,12 @@
             font-weight: 600;
             color: var(--text-main);
         }
+           .form-group labels {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(#FFFFFF);
+        }
 
         .form-control {
             width: 100%;
@@ -543,16 +549,16 @@
             <nav>
                 <div class="mobile-toggle" id="mobile-menu-btn">☰</div>
                 <div class="nav-links" id="nav-links">
+                    <a href="#services" onclick="closeMenu()">Services</a>
                     <a href="#how-it-works" onclick="closeMenu()">Process</a>
-                    <a href="#services" onclick="closeMenu()">Pricing</a>
-                    <a href="#work" onclick="closeMenu()">Our Work</a>
-                    <a href="#results" onclick="closeMenu()">Reviews</a>
+                    <a href="#work" onclick="closeMenu()">Work</a>
+                    <a href="#results" onclick="closeMenu()">Results</a>
                     <a href="#about" onclick="closeMenu()">About</a>
-                    <a href="#contact" onclick="closeMenu()">Free Short!</a>
+                    <a href="#contact" onclick="closeMenu()">Buy Now!</a>
                 </div>
             </nav>
             <div class="header-cta">
-                <a href="#contact" class="btn btn-primary">Request Free Sample</a>
+                <a href="#contact" class="btn btn-primary">Buy Now!</a>
             </div>
         </div>
     </header>
@@ -793,14 +799,26 @@
                 </div>
 
                 <div class="contact-info reveal">
-                    <h3 style="margin-bottom: 1.5rem;">Contact Information</h3>
-                    <p><strong>Email:</strong><br><a href="mailto:untuntedyt@gmail.com">untuntedyt@gmail.com</a></p>
-                    <br>
-                    <p><strong>Phone:</strong><br><a href="tel:+3192221256">+1 (319) 222-1256</a></p>                    
-                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
-                        <p style="margin-bottom: 1rem;">Schedule a call today!</p>
-                        <a href="#" class="btn" style="background: white; color: var(--primary); width: 100%;">Book a Call</a>
-                    </div>
+                    <h3 style="margin-bottom: 1.5rem;">Buy Now</h3>
+  <form id="submit-to-google-sheet" name="submit-to-google-sheet">
+                        <div class="form-group">
+                            <labels for="name">Name</labels>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <labels for="email">Email</labels>
+                            <input type="email" id="email" name="Email" class="form-control" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <labels for="phone">Phone Number</labels>
+                            <input type="tel" id="phone" name="number" class="form-control" placeholder="011-000-1111" required>
+                        </div>
+                        <div class="form-group">
+                            <labels for="message">YouTube Link / Message</labels>
+                            <textarea id="message" name="YT Link" rows="4" class="form-control" placeholder="Paste your channel link or project details..."></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">But it now</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -814,7 +832,7 @@
                 <a href="#how-it-works">Process</a>
                 <a href="#work">Work</a>
                 <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a href="#contact">Buy Now!</a>
             </div>
             <div class="copyright">
                 &copy; devscoffee.com. All rights reserved. <br>Designed for Excellence.
