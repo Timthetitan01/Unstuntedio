@@ -376,7 +376,7 @@
         }
 
         .accordion summary {
-            padding: 1.5rem 0;
+            padding: 1.5 rem 0;
             cursor: pointer;
             font-weight: 600;
             font-size: 1.125rem;
@@ -406,11 +406,11 @@
             color: var(--text-muted);
         }
 
-        /* Contact */
+ /* Contact */
         .contact-form {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: .25rem; /* Restored a healthier gap so inputs don't touch */
         }
 
         .form-group label {
@@ -419,21 +419,29 @@
             font-weight: 600;
             color: var(--text-main);
         }
-           .form-group labels {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(#FFFFFF);
-        }
 
         .form-control {
-            width: 100%;
-            padding: 1rem;
+            /* CHANGED: Set width to 85% */
+            width: 85%; 
+            
+            /* KEPT: Original padding */
+            padding: 1.5rem; 
+            
             border: 1px solid var(--border);
             border-radius: 8px;
             font-family: inherit;
             font-size: 1rem;
             transition: border-color 0.2s;
+        }
+
+        /* NEW: Target the text area to stop resizing */
+        textarea.form-control {
+            resize: none; 
+        }
+
+        /* NEW: Target the specific button ID to match the input width */
+        #submit-btn {
+            width: 85% !important; /* !important overrides the inline HTML style */
         }
 
         .form-control:focus {
@@ -777,15 +785,15 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="Email" class="form-control" placeholder="john@example.com" required>
+                            <input type="email" id="email" name="Email" class="form-control" placeholder="johndoe@gmail.com" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="number" class="form-control" placeholder="011-000-1111" required>
+                            <input type="tel" id="phone" name="number" class="form-control" placeholder="(123) 456-7890" required>
                         </div>
                         <div class="form-group">
                             <label for="message">YouTube Link </label>
-                            <textarea id="message" name="YT Link" rows="4" class="form-control" placeholder="Paste your channel link or project details..."></textarea>
+                            <textarea id="message" name="YT Link" rows="4" class="form-control" placeholder="https://youtube.com/@YourChurchName"></textarea>
                         </div>
                         <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Request Sample</button>
                     </form>
@@ -802,7 +810,7 @@
     <br>
     <br>
                     <p><strong>Phone:</strong><br><a href="tel:+3192221256"> (319) 222-1256</a></p>                    
-                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,1);">
+                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
                     </div>
                 </div>
             </div>
