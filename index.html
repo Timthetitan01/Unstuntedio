@@ -953,73 +953,82 @@
         });
     </script>
 
-    <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwWy_5XlNE3OGLxdZiYyd-vrbpBS36nHKIVYPIWJbed6t_b8xtszs68LT-KnvbQqux78A/exec';
-        
-        // Handle "Request Free Sample" Form
-        const sampleForm = document.forms['submit-to-google-sheet'];
-        const sampleBtn = document.getElementById('submit-btn');
-        const statusMsg = document.getElementById('form-status');
+<script>
+    // -----------------------------------------------------------------------
+    //  CONFIGURATION
+    // -----------------------------------------------------------------------
+    const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwWy_5XlNE3OGLxdZiYyd-vrbpBS36nHKIVYPIWJbed6t_b8xtszs68LT-KnvbQqux78A/exec';
+    
+    // PASTE YOUR FORMSPREE URL HERE:
+    const formspreeURL = 'https://formspree.io/f/https://formspree.io/f/xjknrjgq'; 
 
-        if(sampleForm) {
-            sampleForm.addEventListener('submit', e => {
-                e.preventDefault();
-                
-                const originalBtnText = sampleBtn.innerHTML;
-                sampleBtn.innerHTML = 'Sending...';
-                sampleBtn.disabled = true;
-                sampleBtn.style.opacity = '0.7';
+    // -----------------------------------------------------------------------
+    //  FORM LOGIC
+    // -----------------------------------------------------------------------
+    const sampleForm = document.forms['submit-to-google-sheet'];
+    const sampleBtn = document.getElementById('submit-btn');
+    const statusMsg = document.getElementById('form-status');
 
-                fetch(scriptURL, { method: 'POST', body: new FormData(sampleForm)})
-                    .then(response => {
-                        statusMsg.style.display = 'block';
-                        statusMsg.style.color = 'green';
-                        statusMsg.innerHTML = "Success! We'll be in touch soon.";
-                        alert('Thank you! Your information has been sent.');
-                        
-                        sampleForm.reset();
-                        sampleBtn.innerHTML = originalBtnText;
-                        sampleBtn.disabled = false;
-                        sampleBtn.style.opacity = '1';
-                    })
-                    .catch(error => {
-                        console.error('Error!', error.message);
-                        statusMsg.style.display = 'block';
-                        statusMsg.style.color = 'red';
-                        statusMsg.innerHTML = "Error sending message. Please try again.";
-                        
-                        sampleBtn.innerHTML = originalBtnText;
-                        sampleBtn.disabled = false;
-                        sampleBtn.style.opacity = '1';
-                    });
+    if (sampleForm) {
+        sampleForm.addEventListener('submit', e => {
+            e.preventDefault();
+
+            // 1. UI Loading State
+            const originalBtnText = sampleBtn.innerHTML;
+            sampleBtn.innerHTML = 'Sending...';
+            sampleBtn.disabled = true;
+            sampleBtn.style.opacity = '0.7';
+
+            // Prepare the data
+            const formData = new FormData(sampleForm);
+
+            // 2. Create the two fetch requests
+            // Request A: Google Sheets
+            const reqGoogle = fetch(googleScriptURL, {
+                method: 'POST',
+                body: formData
             });
-        }
 
-        // Handle "Buy Now" Contact Form
-        const buyForm = document.forms['buy-now-form'];
-        if(buyForm) {
-            buyForm.addEventListener('submit', e => {
-                e.preventDefault();
-                const btn = buyForm.querySelector('button');
-                const originalText = btn.innerHTML;
-                
-                btn.innerHTML = 'Sending...';
-                btn.disabled = true;
-
-                fetch(scriptURL, { method: 'POST', body: new FormData(buyForm)})
-                    .then(response => {
-                        alert('Thank you! We will contact you shortly to finalize your purchase.');
-                        buyForm.reset();
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    })
-                    .catch(error => {
-                        alert('Error submitting form. Please try again.');
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    });
+            // Request B: Formspree (requires specific headers for AJAX)
+            const reqFormspree = fetch(formspreeURL, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
             });
-        }
-    </script>
+
+            // 3. Send both at the same time
+            Promise.all([reqGoogle, reqFormspree])
+                .then(responses => {
+                    // Check if Formspree failed (it returns 200 OK usually, but let's check)
+                    if (!responses[1].ok) {
+                        throw new Error('Formspree issue');
+                    }
+
+                    // Success!
+                    statusMsg.style.display = 'block';
+                    statusMsg.style.color = 'green';
+                    statusMsg.innerHTML = "Success! We'll be in touch soon.";
+                    // alert('Thank you! Your information has been sent.');
+
+                    sampleForm.reset();
+                    sampleBtn.innerHTML = originalBtnText;
+                    sampleBtn.disabled = false;
+                    sampleBtn.style.opacity = '1';
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    statusMsg.style.display = 'block';
+                    statusMsg.style.color = 'red';
+                    statusMsg.innerHTML = "Error sending message. Please try again.";
+
+                    sampleBtn.innerHTML = originalBtnText;
+                    sampleBtn.disabled = false;
+                    sampleBtn.style.opacity = '1';
+                });
+        });
+    }
+</script>
 </body>
 </html>
