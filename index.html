@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unstunted.</title>
+    <title>Unstunted. | Church Content Editing</title>
     <link rel="icon" type="image/png" href="UNSTUNTED_LOGO.png">
-    <meta name="description" content="Unstunted.">
+    <meta name="description" content="Premium social media video editing for churches.">
     
     <style>
         /* -------------------------------------------------------------------
@@ -285,6 +285,9 @@
         .pricing-card {
             text-align: center;
             padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .price {
@@ -296,6 +299,8 @@
         
         .price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
         
+        .features-list { margin-bottom: 1.5rem; }
+
         .features-list li {
             margin-bottom: 0.75rem;
             display: flex;
@@ -324,74 +329,45 @@
         /* Work Samples */
         .work-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .work-item {
             position: relative;
-            aspect-ratio: 16/9;
-            background-color: #CBD5E1;
+            aspect-ratio: 9/16; 
+            background-color: #000;
             border-radius: var(--border-radius);
             overflow: hidden;
-            cursor: pointer;
+            box-shadow: var(--shadow-md);
             transition: var(--transition-smooth);
+            border: 4px solid #000;
         }
 
         .work-item:hover { transform: scale(1.02); }
 
-        .work-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(10, 61, 145, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .work-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
-
-        .work-item:hover .work-overlay { opacity: 1; }
-
-        .play-icon {
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .play-icon::after {
-            content: '';
-            border-left: 12px solid var(--primary);
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            margin-left: 4px;
-        }
-
-        /* Results / Metrics */
-        .stat-card {
-            text-align: center;
-            border-left: 4px solid var(--primary);
-        }
-        
-        .stat-number { font-size: 3rem; font-weight: 800; color: var(--primary); display: block;}
 
         /* About */
         .about-grid {
             align-items: center;
         }
         
-.about-photo {
-    width: 100%;
-    height: auto; /* Maintains the image aspect ratio */
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-lg);
-    display: block;
-    object-fit: cover;
-}
+        .about-photo {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            display: block;
+            object-fit: cover;
+        }
 
         /* FAQ */
         .accordion details {
@@ -475,7 +451,7 @@
         
         .contact-info h3 { color: white; }
         .contact-info p { color: rgba(255,255,255,0.8); }
-        .contact-info a { color: white; border-bottom: 1px solid rgba(255,255,255,0.3); }
+        .contact-info label { color: white; }
 
         /* Footer */
         footer {
@@ -499,45 +475,96 @@
             margin: 2rem 0;
             flex-wrap: wrap;
         }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
 
         .copyright {
             font-size: 0.875rem;
             color: var(--text-muted);
         }
 
-        /* Update these specific classes in your <style> section */
+        /* -------------------------------------------------------------------
+           6. PRICING MODAL STYLES
+           ------------------------------------------------------------------- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Dimmed background */
+            z-index: 2000;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-.work-grid {
-    /* Change to 3 columns max, centering them */
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1000px; /* Limit width so they don't get too spread out */
-    margin: 0 auto;    /* Center the grid container */
-}
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
 
-.work-item {
-    position: relative;
-    /* CHANGE: Aspect ratio from 16/9 to 9/16 for vertical video */
-    aspect-ratio: 9/16; 
-    background-color: #000; /* Black background looks better for vertical video */
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-smooth);
-}
+        .modal-box {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-lg);
+        }
 
-.work-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
+        .modal-overlay.open .modal-box {
+            transform: scale(1);
+        }
 
-/* Optional: Add a subtle border for white backgrounds so videos pop */
-.work-item {
-    border: 4px solid #000;
-}
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .modal-title {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .modal-subtitle {
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
+
+        .modal-btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn-choice {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+        }
 
     </style>
 </head>
@@ -549,16 +576,15 @@
             <nav>
                 <div class="mobile-toggle" id="mobile-menu-btn">☰</div>
                 <div class="nav-links" id="nav-links">
-                    <a href="#services" onclick="closeMenu()">Services</a>
                     <a href="#how-it-works" onclick="closeMenu()">Process</a>
-                    <a href="#work" onclick="closeMenu()">Work</a>
-                    <a href="#results" onclick="closeMenu()">Results</a>
+                    <a href="#services" onclick="closeMenu()">Pricing</a>
+                    <a href="#work" onclick="closeMenu()">Portfolio</a>
+                    <a href="#results" onclick="closeMenu()">Reviews</a>
                     <a href="#about" onclick="closeMenu()">About</a>
-                    <a href="#contact" onclick="closeMenu()">Buy Now!</a>
                 </div>
             </nav>
             <div class="header-cta">
-                <a href="#contact" class="btn btn-primary">Buy Now!</a>
+                <a href="#services" class="btn btn-primary">Buy Now!</a>
             </div>
         </div>
     </header>
@@ -568,16 +594,14 @@
             <span class="tagline">Premium Content Editing for Churches</span>
             <h1>Amplify Your Message.<br>Scale Your Impact.</h1>
             <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 2rem;">
-                Equip your church to take on the battle of social media
+                Equip your church to take on the battle of social media.
             </p>
             <div class="btn-group">
-                <a href="#contact" class="btn btn-primary">Request Free Sample</a>
-                <a href="#work" class="btn btn-secondary">See Our Portfoio</a>
+                <a href="#services" class="btn btn-primary">Buy Now!</a>
+                <a href="#contact" class="btn btn-secondary">Request Free Sample</a>
             </div>
         </div>
     </section>
-
-  
 
     <section id="how-it-works" class="section">
         <div class="container">
@@ -594,7 +618,7 @@
                 <div class="card step-card reveal">
                     <div class="step-number">02</div>
                     <h4>Strategy Call</h4>
-                    <p>We will call or email you to discuss your goals and get your footage</p>
+                    <p>We will call or email you to discuss your goals and get your footage.</p>
                 </div>
                 <div class="card step-card reveal">
                     <div class="step-number">03</div>
@@ -605,7 +629,7 @@
         </div>
     </section>
 
-<section id="work" class="section bg-off">
+    <section id="work" class="section bg-off">
         <div class="container">
             <div class="text-center reveal" style="margin-bottom: 4rem;">
                 <div>
@@ -640,7 +664,7 @@
         </div>
     </section>
 
-      <section id="services" class="section bg-off">
+    <section id="services" class="section bg-off">
         <div class="container">
             <div class="text-center reveal" style="margin-bottom: 4rem;">
                 <h3>Pricing</h3>
@@ -649,42 +673,47 @@
             
             <div class="grid-3">
                 <div class="card pricing-card reveal" style="border-color: var(--primary); box-shadow: var(--shadow-md);">
-                    <span class="tagline" style="margin-bottom: 1rem;">Most Popular</span>
-                    <h4>Basic</h4>
-                    <div class="price">$300<span>/mo</span></div>
-                    <ul class="features-list">
-                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 12 Shorts / Month</li>
-                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 4 Shorts per week</li>
-                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Uploaded to Youtube For You</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary" style="margin-top: 1.5rem; width: 100%;">Choose Plan</a>
+                    <div>
+                        <span class="tagline" style="margin-bottom: 1rem;">Most Popular</span>
+                        <h4>Basic</h4>
+                        <div class="price">$300<span>/mo</span></div>
+                        <ul class="features-list">
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 12 Shorts / Month</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 4 Shorts per week</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Uploaded to Youtube For You</li>
+                        </ul>
+                    </div>
+                    <button onclick="openPricingModal('basic')" class="btn btn-primary" style="margin-top: 1.5rem; width: 100%;">Choose Plan</button>
                 </div>
 
                 <div class="card pricing-card reveal">
-                    <h4>Full Youtube Kit </h4>
-                    <div class="price">$900<span>/mo</span></div>
-                    <ul class="features-list">
-                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 4 Long Youtube Videos / Month</li>
-                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> All long form</li>
-                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Uploaded to Youtube for You</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;">Choose Plan</a>
+                    <div>
+                        <h4>Full Youtube Kit </h4>
+                        <div class="price">$900<span>/mo</span></div>
+                        <ul class="features-list">
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 4 Long Youtube Videos / Month</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> All long form</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Uploaded to Youtube for You</li>
+                        </ul>
+                    </div>
+                    <button onclick="openPricingModal('full')" class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;">Choose Plan</button>
                 </div>
 
                 <div class="card pricing-card reveal">
-                    <h4>Church Media</h4>
-                    <div class="price">$1,500<span>/mo</span></div>
-                    <ul class="features-list">
-                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Eveything in Other Teirs</li>
-                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Uploaded to Tiktok, Youtube, And Instagram</li>
-                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> All Done For You</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;">Choose Plan</a>
+                    <div>
+                        <h4>Church Media</h4>
+                        <div class="price">$1,500<span>/mo</span></div>
+                        <ul class="features-list">
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Everything in Other Tiers</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Uploaded to Tiktok, Youtube, And Instagram</li>
+                            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> All Done For You</li>
+                        </ul>
+                    </div>
+                    <button onclick="openPricingModal('church')" class="btn btn-secondary" style="margin-top: 1.5rem; width: 100%;">Choose Plan</button>
                 </div>
             </div>
         </div>
     </section>
-
 
     <section id="results" class="section">
         <div class="container">
@@ -720,6 +749,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <section id="about" class="section bg-off">
@@ -733,7 +763,7 @@
                 </div>
                 <div class="about-image reveal">
                     <img src="graphic.png" alt="About Unstunted" class="about-photo">
-                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -748,7 +778,7 @@
             <div class="accordion reveal">
                 <details>
                     <summary>What is Unstunted?</summary>
-                    <p>We at untunted strive to connect churches to the youth, we use specialised social media tactics to turn your weekly sermon video into viral clips to upload to your social media.</p>
+                    <p>We at Unstunted strive to connect churches to the youth. We use specialised social media tactics to turn your weekly sermon video into viral clips to upload to your social media.</p>
                 </details>
                 <details>
                     <summary>Is it worth it?</summary>
@@ -760,19 +790,20 @@
                 </details>
                 <details>
                     <summary>How many views can I expect?</summary>
-                    <p>Anywhere between thousands to millions of views.</p>
+                    <p>Anywhere between thousands to millions of views depending on the content.</p>
                 </details>
             </div>
         </div>
     </section>
-<section id="contact" class="section">
+
+    <section id="contact" class="section">
         <div class="container">
             <div class="grid-2">
                 <div class="contact-form reveal">
                     <div>
                         <h3>Get Started</h3>
                         <h2>Get your free sample</h2>
-                        <p>Fill out the form below to recieve your sample.</p>
+                        <p>Fill out the form below to receive your sample.</p>
                     </div>
                     
                     <form id="submit-to-google-sheet" name="submit-to-google-sheet">
@@ -798,27 +829,13 @@
                     <div id="form-status" style="margin-top: 1rem; display: none;"></div>
                 </div>
 
-                <div class="contact-info reveal">
-                    <h3 style="margin-bottom: 1.5rem;">Buy Now</h3>
-  <form id="submit-to-google-sheet" name="submit-to-google-sheet">
-                        <div class="form-group">
-                            <labels for="name">Name</labels>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <labels for="email">Email</labels>
-                            <input type="email" id="email" name="Email" class="form-control" placeholder="john@example.com" required>
-                        </div>
-                        <div class="form-group">
-                            <labels for="phone">Phone Number</labels>
-                            <input type="tel" id="phone" name="number" class="form-control" placeholder="011-000-1111" required>
-                        </div>
-                        <div class="form-group">
-                            <labels for="message">YouTube Link / Message</labels>
-                            <textarea id="message" name="YT Link" rows="4" class="form-control" placeholder="Paste your channel link or project details..."></textarea>
-                        </div>
-                        <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">But it now</button>
-                    </form>
+<div class="contact-info reveal">
+                    <h3 style="margin-bottom: 1.5rem;">Contact Information</h3>
+                    <p><strong>Email:</strong><br><a href="mailto:untuntedyt@gmail.com">untuntedyt@gmail.com</a></p>
+                    <br>
+                    <p><strong>Phone:</strong><br><a href="tel:+3192221256">+1 (319) 222-1256</a></p>                    
+                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                    </div>
                 </div>
             </div>
         </div>
@@ -828,21 +845,39 @@
         <div class="container">
             <div class="footer-logo">Unstunted.</div>
             <div class="footer-links">
-                <a href="#services">Services</a>
                 <a href="#how-it-works">Process</a>
-                <a href="#work">Work</a>
+                <a href="#services">Pricing</a>
+                <a href="#work">Portfilio</a>
                 <a href="#about">About</a>
-                <a href="#contact">Buy Now!</a>
+                <a href="#contact">Contact</a>
             </div>
             <div class="copyright">
-                &copy; devscoffee.com. All rights reserved. <br>Designed for Excellence.
+                &copy; devscoffee.com. All rights reserved. <br>Your Idea, Our Brew.
             </div>
         </div>
     </footer>
 
-    <script>
+    <div id="pricing-modal" class="modal-overlay">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closePricingModal()">&times;</span>
+            <h3 id="modal-title" class="modal-title">Select Plan</h3>
+            <p class="modal-subtitle">Choose your billing cycle</p>
+            
+            <div class="modal-btn-container">
+                <a id="btn-monthly" href="#" class="btn btn-secondary btn-choice">
+                    <span>Monthly</span>
+                    <span id="price-monthly" style="font-weight: 800;">$0</span>
+                </a>
+                
+                <a id="btn-yearly" href="#" class="btn btn-primary btn-choice">
+                    <span>Yearly (Save ~20%)</span>
+                    <span id="price-yearly" style="font-weight: 800;">$0</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-        
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             
             // 1. Mobile Menu Toggle
@@ -860,9 +895,9 @@
                 menuBtn.textContent = '☰';
             };
 
-            // 2. Scroll Reveal Animation (IntersectionObserver)
+            // 2. Scroll Reveal Animation
             const observerOptions = {
-                threshold: 0.15, // Trigger when 15% of element is visible
+                threshold: 0.15,
                 rootMargin: "0px 0px -50px 0px"
             };
 
@@ -870,7 +905,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        observer.unobserve(entry.target); // Only animate once
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
@@ -891,7 +926,7 @@
                 }
             });
 
-            // 4. Stagger Animations for Children (optional enhancement for Grids)
+            // 4. Stagger Animations
             const grids = document.querySelectorAll('.grid-3, .grid-2');
             grids.forEach(grid => {
                 const children = grid.children;
@@ -901,47 +936,140 @@
             });
         });
     </script>
+
+    <script>
+        // ----------------------------------------------------
+        // CONFIGURATION: PASTE YOUR STRIPE LINKS HERE
+        // ----------------------------------------------------
+        const pricingData = {
+            'basic': {
+                title: 'Basic Plan',
+                monthlyPrice: '$300',
+                yearlyPrice: '$3,000', 
+                monthlyLink: 'https://buy.stripe.com/cNi3cw9aggGocH57sl08g02',
+                yearlyLink:  'https://buy.stripe.com/3cI9AU5Y475O22r4g908g03'
+            },
+            'full': {
+                title: 'Full Youtube Kit',
+                monthlyPrice: '$900',
+                yearlyPrice: '$9,000',
+                monthlyLink: 'https://buy.stripe.com/9B628saek4XGdL928108g05',
+                yearlyLink:  'https://buy.stripe.com/dRm28s3PWgGo9uTaEx08g06'
+            },
+            'church': {
+                title: 'Church Media',
+                monthlyPrice: '$1,500',
+                yearlyPrice: '$15,000',
+                monthlyLink: 'https://buy.stripe.com/4gMbJ2euAduc7mL28108g07',
+                yearlyLink:  'https://buy.stripe.com/eVqaEYgCI2PycH59At08g08'
+            }
+        };
+
+        // ----------------------------------------------------
+        // MODAL LOGIC
+        // ----------------------------------------------------
+        const modal = document.getElementById('pricing-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const priceMonthlyDisplay = document.getElementById('price-monthly');
+        const priceYearlyDisplay = document.getElementById('price-yearly');
+        const btnMonthly = document.getElementById('btn-monthly');
+        const btnYearly = document.getElementById('btn-yearly');
+
+        function openPricingModal(tier) {
+            const data = pricingData[tier];
+            
+            // Update Text
+            modalTitle.textContent = data.title;
+            priceMonthlyDisplay.textContent = data.monthlyPrice;
+            priceYearlyDisplay.textContent = data.yearlyPrice;
+            
+            // Update Links
+            btnMonthly.href = data.monthlyLink;
+            btnYearly.href = data.yearlyLink;
+            
+            // Show Modal
+            modal.classList.add('open');
+        }
+
+        function closePricingModal() {
+            modal.classList.remove('open');
+        }
+
+        // Close if clicking outside the white box
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closePricingModal();
+            }
+        });
+    </script>
+
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwWy_5XlNE3OGLxdZiYyd-vrbpBS36nHKIVYPIWJbed6t_b8xtszs68LT-KnvbQqux78A/exec';
-        const form = document.forms['submit-to-google-sheet'];
-        const btn = document.getElementById('submit-btn');
+        
+        // Handle "Request Free Sample" Form
+        const sampleForm = document.forms['submit-to-google-sheet'];
+        const sampleBtn = document.getElementById('submit-btn');
         const statusMsg = document.getElementById('form-status');
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            
-            // UI Loading State
-            const originalBtnText = btn.innerHTML;
-            btn.innerHTML = 'Sending...';
-            btn.disabled = true;
-            btn.style.opacity = '0.7';
+        if(sampleForm) {
+            sampleForm.addEventListener('submit', e => {
+                e.preventDefault();
+                
+                const originalBtnText = sampleBtn.innerHTML;
+                sampleBtn.innerHTML = 'Sending...';
+                sampleBtn.disabled = true;
+                sampleBtn.style.opacity = '0.7';
 
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(response => {
-                    // Success State
-                    statusMsg.style.display = 'block';
-                    statusMsg.style.color = 'green';
-                    statusMsg.innerHTML = "Success! We'll be in touch soon.";
-                    alert('Thank you! Your information has been sent.');
-                    
-                    // Reset Form
-                    form.reset();
-                    btn.innerHTML = originalBtnText;
-                    btn.disabled = false;
-                    btn.style.opacity = '1';
-                })
-                .catch(error => {
-                    // Error State
-                    console.error('Error!', error.message);
-                    statusMsg.style.display = 'block';
-                    statusMsg.style.color = 'red';
-                    statusMsg.innerHTML = "Error sending message. Please try again.";
-                    
-                    btn.innerHTML = originalBtnText;
-                    btn.disabled = false;
-                    btn.style.opacity = '1';
-                });
-        });
+                fetch(scriptURL, { method: 'POST', body: new FormData(sampleForm)})
+                    .then(response => {
+                        statusMsg.style.display = 'block';
+                        statusMsg.style.color = 'green';
+                        statusMsg.innerHTML = "Success! We'll be in touch soon.";
+                        alert('Thank you! Your information has been sent.');
+                        
+                        sampleForm.reset();
+                        sampleBtn.innerHTML = originalBtnText;
+                        sampleBtn.disabled = false;
+                        sampleBtn.style.opacity = '1';
+                    })
+                    .catch(error => {
+                        console.error('Error!', error.message);
+                        statusMsg.style.display = 'block';
+                        statusMsg.style.color = 'red';
+                        statusMsg.innerHTML = "Error sending message. Please try again.";
+                        
+                        sampleBtn.innerHTML = originalBtnText;
+                        sampleBtn.disabled = false;
+                        sampleBtn.style.opacity = '1';
+                    });
+            });
+        }
+
+        // Handle "Buy Now" Contact Form
+        const buyForm = document.forms['buy-now-form'];
+        if(buyForm) {
+            buyForm.addEventListener('submit', e => {
+                e.preventDefault();
+                const btn = buyForm.querySelector('button');
+                const originalText = btn.innerHTML;
+                
+                btn.innerHTML = 'Sending...';
+                btn.disabled = true;
+
+                fetch(scriptURL, { method: 'POST', body: new FormData(buyForm)})
+                    .then(response => {
+                        alert('Thank you! We will contact you shortly to finalize your purchase.');
+                        buyForm.reset();
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    })
+                    .catch(error => {
+                        alert('Error submitting form. Please try again.');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    });
+            });
+        }
     </script>
 </body>
 </html>
