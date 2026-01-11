@@ -154,8 +154,8 @@
         /* Reveal Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            transform: translateY(20px); /* Reduced movement distance */
+            transition: all 0.4s ease-out; /* Much faster duration */
         }
 
         .reveal.active {
@@ -897,7 +897,7 @@
 
             // 2. Scroll Reveal Animation
             const observerOptions = {
-                threshold: 0.15,
+                threshold: 0.05,
                 rootMargin: "0px 0px -50px 0px"
             };
 
@@ -931,7 +931,7 @@
             grids.forEach(grid => {
                 const children = grid.children;
                 for(let i = 0; i < children.length; i++) {
-                    children[i].style.transitionDelay = `${i * 100}ms`;
+                    children[i].style.transitionDelay = `${i * 50}ms`;
                 }
             });
         });
